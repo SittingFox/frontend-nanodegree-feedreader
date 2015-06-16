@@ -81,7 +81,7 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 done();
-            })
+            });
         });
 
         /* Ensures that when the loadFeed function is called and
@@ -124,8 +124,6 @@ $(function() {
          * function that the content actually changes.
          */
         it('changes content', function(done) {
-            console.log(content1);
-            console.log(content2);
             expect(content1).not.toBe(content2);
             done();
         });
