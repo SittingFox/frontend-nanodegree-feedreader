@@ -42,7 +42,7 @@ $(function() {
                 expect(feed.name).not.toBe('');
             });
         });
-    });
+    }); // end of RSS Feeds suite
 
 
     // Checking the functionality of the menu
@@ -73,7 +73,7 @@ $(function() {
             menuButton.click();
             expect( isMenuHidden() ).toBe(true);
         });
-    });
+    }); // end of the menu suite
 
     // Checking that feeds are being loaded
     describe('Initial Entries', function() {
@@ -95,12 +95,40 @@ $(function() {
             expect(entries.length).not.toBe(0);
             done();
         });
-    });
+    }); // end of Initial Entries suite
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+    // Checking that content changes on new feed load
+    describe('New Feed Selection', function() {
+        // Stores the content of both feed loads
+        var content1, content2;
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+        /* Two separate calls are made to loadFeed, each using a
+         * different feed id. The first call to loadFeed calls the
+         * second one. When the second one is finished, it says the
+         * asynchronous loading is all done. Different IDs should make
+         * for different content to compare.
          */
+        beforeEach(function(done) {
+            // First call to loadFeed, using ID 1
+            loadFeed(1, function() {
+                content1 = $('.feed').html();
+                // Second call to loadFeed, using ID 2
+                loadFeed(2, function() {
+                    content2 = $('.feed').html();
+                    done();
+                });
+            });
+        });
+
+        /* Ensures that when a new feed is loaded by the loadFeed
+         * function that the content actually changes.
+         */
+        it('changes content', function(done) {
+            console.log(content1);
+            console.log(content2);
+            expect(content1).not.toBe(content2);
+            done();
+        });
+    }); // end of New Feed Selection suite
+
 }());
