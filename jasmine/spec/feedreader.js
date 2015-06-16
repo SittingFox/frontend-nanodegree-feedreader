@@ -9,6 +9,8 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
+    "use strict";
+
     // Checking the list of feeds in allFeeds
     describe('RSS Feeds', function() {
         /* Make sure that the allFeeds variable has been defined and
@@ -73,14 +75,27 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    // Checking that feeds are being loaded
+    describe('Initial Entries', function() {
+        // Preparing for asynchronous test
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            })
+        });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+        /* Ensures that when the loadFeed function is called and
+         * completes its work, there is at least a single .entry
+         * element within the .feed container.
          */
+        it('should exist', function(done) {
+            var container = $('.feed');
+            var entries = container.find('.entry');
+
+            expect(entries.length).not.toBe(0);
+            done();
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection"
 
