@@ -79,9 +79,7 @@ $(function() {
     describe('Initial Entries', function() {
         // Preparing for asynchronous test
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
         /* Ensures that when the loadFeed function is called and
